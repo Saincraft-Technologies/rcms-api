@@ -1,0 +1,59 @@
+<table id="basic-datatable" style="font-size: smaller;" class="table table-striped dt-responsive nowrap" width="100%">
+    <thead>
+        <tr>
+            <th>name</th>
+            <th>organisation</th>
+            <th>email</th>
+            <th>phone</th>
+            <th>token</th>
+            <th>route</th>
+            <th>options</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each applications}}
+        <tr>
+            <td>
+                {{app_name}}
+            </td>
+            <td>
+                {{organisation_name}}
+            </td>
+            <td>
+                {{email}}
+            </td>
+            <td>
+                {{phone}}
+            </td>
+            <td>
+                {{key}}
+            </td>
+            <td>
+                {{app_route}}
+            </td>
+
+            <td>
+                <div class="dropdown text-center">
+                    <button type="button"
+                        class="btn btn-sm btn-icon btn-rounded btn-outline-secondary dropdown-btn dropdown-toggle arrow-none card-drop"
+                        data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item"
+                            onclick="largeModal('/applications/logs/{{id}}', '{{app_name}} logs', 'mdi mdi-cog text-warning')">
+                            log
+                        </a>
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item"
+                            onclick="confirmModal('applications/delete/{{id}}' )">
+                            delete
+                        </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {{!--
+        <?php endforeach; ?> --}}
+        {{/each}}
+    </tbody>
+</table>
