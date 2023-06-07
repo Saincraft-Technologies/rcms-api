@@ -72,11 +72,21 @@ module.exports = async executeInitialQueries => {
                             await role.addUser(await user);
 
                             break;
+
+                        case models.applications:
+                            console.log('...creating applications::');
+                            var role = JSON.parse(JSON.stringify(await models.roles.findOne({ where: { id: 1 }, include: [{ model: models.users }] })));
+                            let users = await role.users;
+                            for (let user in users) {
+                                dataObject['userId'] = user.id;
+                                await models.applications.create(dataObject);
+                            }
+                            break;
                         case models.regions:
                             console.log('...creating regions::');
                             var country = await models.countries.findOne({ where: { id: 1 } });
                             dataObject['countryId'] = country.id;
-                            var region = await models.regions.create(dataObject);
+                            await models.regions.create(dataObject);
                             break;
 
                         default:
