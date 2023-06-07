@@ -10,7 +10,7 @@ contacts = sequelize.define('contacts', {
         unique: true
     },
     phone: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     email: {

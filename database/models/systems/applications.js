@@ -9,7 +9,6 @@ applications = sequelize.define('applications', {
     },
     app_name: {
         type: DataTypes.STRING,
-        unique: true,
         allowNull: false
     },
     organisation_name: {

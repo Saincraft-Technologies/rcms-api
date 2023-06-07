@@ -70,16 +70,20 @@ main = {
 // user
 main.indexes.push([`name`, 'email', 'password', 'gender', 'birthdate', 'phone', 'address']);
 main.lists.push([
-    ['Gideon Sainyeye', 'gsainyeye@gmail.com', '@73N@', 'MALE', '1991-07-07', '658598333', 'P.O.Box 123'],
-    ['Johnson Mollel', 'johnsonmollel@outlook.com', '@73N@', 'MALE', '1998-05-17', '755220249', 'P.O.Box 123'],
+    ['Gideon Sainyeye', 'gsainyeye@gmail.com', '@73N@', 'MALE', '1991-07-07', '+255658598333', 'P.O.Box 123'],
+    ['Johnson Mollel', 'johnsonmollel@outlook.com', '@73N@', 'MALE', '1998-05-17', '+255755220249', 'P.O.Box 123'],
 ]);
 MAIN.push([models.users, main]);
-
+main = {
+    indexes: [],
+    lists: []
+};
 // applications
 main.indexes.push([`app_name`, 'organisation_name', 'app_route', 'email', 'phone', 'key', 'app_secret', 'code', 'ip_address', 'response_format']);
 main.lists.push([
     ['rcms-api', 'saincraft technologies', 'https://rcsm-api.builds.saincrafttechnologies.com', 'gsainyeye@gmail.com', '658598333', 'iuuhUYHyuhyrhg7357824hhfh8f2f8248g87fp', 'lkij95t8vg0g958ghdfld03ir69gtjfkeurnfi4', '247', '::1', 'json']
 ]);
 MAIN.push([models.applications, main]);
+
 
 module.exports = MAIN;
