@@ -16,7 +16,7 @@ const cors = require('cors');
 
 const models = require("./database/models/module_exporter");
 app.use(cors({
-    origin: ['https://www.saincrafttechnologies.com', 'https://rcms-api.builds.saincrafttechnologies.com', 'http://rcms-api.builds.saincrafttechnologies.com', 'https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/storekeeperapp/public/fonts', , 'https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/storekeeperapp/public', process.env.D_PUBLIC],
+    origin: ['https://www.saincrafttechnologies.com', 'https://rcms-api.builds.saincrafttechnologies.com', '192.168.8.14', 'http://rcms-api.builds.saincrafttechnologies.com', 'https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/storekeeperapp/public/fonts', , 'https://saincrafttechnologies-static-public-2023.fra1.digitaloceanspaces.com/storekeeperapp/public', process.env.D_PUBLIC],
     methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
 }));
 app.use('/public', express.static(path.resolve(__dirname + '/public')));
