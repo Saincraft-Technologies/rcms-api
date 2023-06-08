@@ -5,7 +5,7 @@ class Session {
     #_token;
     constructor(req) {
         this._request = req;
-        this.checkApp().then(r => r).catch(err => console.log(err));
+        // this.checkApp().then(r => r).catch(err => console.log("error", err));
     }
     async checkApp() {
         try {
@@ -19,16 +19,18 @@ class Session {
                 return this._authorized;
             } else {
                 console.log('am checking3', auth);
-                return this._request.logout(async (err) => {
+                 this._request.logout(async (err) => {
                     if (err) {
                         console.log('error::', err);
                     }
                     this._authorized = false;
                     return false;
                 });
+                return false;
             }
         } catch (error) {
             console.log('error::', error);
+            return false;
         }
 
     };
