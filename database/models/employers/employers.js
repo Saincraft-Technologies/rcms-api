@@ -1,13 +1,15 @@
 const { Model, DataTypes, sequelize } = require("../../mysql");
-class charges extends Model { };
-charges = sequelize.define('charges', {
+
+/** charge item gari, nyama,  */
+class employers extends Model { };
+employers = sequelize.define('employers', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
     name: { type: DataTypes.STRING },
-    descriptions: { type: DataTypes.STRING }
+    tin: { type: DataTypes.STRING },
+    contract_ref: { type: DataTypes.STRING },
 }, { paranoid: true });
-
-module.exports = charges;
+module.exports = employers;

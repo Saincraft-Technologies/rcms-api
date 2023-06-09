@@ -17,3 +17,4 @@ business_categories = sequelize.define('business_categories', {
     }
 }, { paranoid: true });
 module.exports = business_categories;
+

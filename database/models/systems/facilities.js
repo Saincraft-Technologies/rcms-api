@@ -1,13 +1,14 @@
 const { Model, DataTypes, sequelize } = require("../../mysql");
-class charges extends Model { };
-charges = sequelize.define('charges', {
+const regions = require("./regions");
+class facilities extends Model { };
+facilities = sequelize.define('facilities', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
     name: { type: DataTypes.STRING },
-    descriptions: { type: DataTypes.STRING }
 }, { paranoid: true });
-
-module.exports = charges;
+facilities.belongsTo(regions);
+regions.hasMany(facilities);
+module.exports = facilities;

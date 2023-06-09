@@ -1,6 +1,6 @@
 const { Model, DataTypes, sequelize } = require("../../mysql");
-class charges extends Model { };
-charges = sequelize.define('charges', {
+class business_types extends Model { };
+business_types = sequelize.define('business_types', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -10,4 +10,4 @@ charges = sequelize.define('charges', {
     descriptions: { type: DataTypes.STRING }
 }, { paranoid: true });
 
-module.exports = charges;
+module.exports = business_types;

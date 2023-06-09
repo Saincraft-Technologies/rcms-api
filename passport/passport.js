@@ -1,6 +1,8 @@
 
+const RateLimit = require('../controllers/controls/rateLimit');
 const { passwordHashVerify } = require('../controllers/controls/service');
 const models = require('../database/models/module_exporter');
+const rateLimit = require('express-rate-limit');
 
 // const session = require('express-session');
 // const SessionStore = require('session-file-store')(session);
@@ -76,6 +78,51 @@ module.exports = {
             return res.redirect('/auth/signin');
         }
     },
+    hasToken: async (req, res, next) => {
+        try {
+
+            let auth = JSON.parse(JSON.stringify(await models['applications'].findAndCountAll({ where: { key: req.headers.authorization.split(' ')[1] } })));
+
+            console.log('auth', auth);
+            if (auth.count > 0) {
+                return next();
+            } else {
+                return res.status(203).setHeader('Content-Type', 'application/json').json({ status: false, notification: 'access denied for token!' });
+            }
+        } catch (err) {
+            console.log(err);
+
+            return res.status(203).setHeader('Content-Type', 'application/json').json({ status: false, notification: 'access denied for token!' });
+        }
+    },
+    apiLimit: rateLimit({
+        windowMs: 0.3 * 60 * 1000, // milliseconds - how long after lock out should you wait
+        max: 1, // max number of recent connections during `window` milliseconds before sending a 429 response
+        message: "Too many requests from ip address at once, please try again later in 5 minutes",
+        statusCode: 429, // 429 status = Too Many Requests (RFC 6585)
+        headers: true, //Send custom rate limit header with limit and remaining
+        skipFailedRequests: false, // Do not count failed requests (status >= 400)
+        skipSuccessfulRequests: false, // Do not count successful requests (status < 400)
+        // allows to create custom keys (by default user IP is used)
+        keyGenerator: function (req /*, res*/) {
+            // console.log(req.ip);
+            return req.ip;
+        },
+        skip: function (/*req, res*/) {
+            return false;
+        },
+        handler: async function (req, res, next) {
+            res.status(200).json({ status: true, notification: 'Too many requests from ip address at once, please try again later in ' + (0.3 * 60) + ' sec' });
+            // return true
+            // next()
+            // res.end(new Buffer.from({ end: 'end' }));
+
+        },
+        onLimitReached: function (req, res) {
+            // res.status(203).json({ status: false, notification: 'maximum number request limit reached!' });
+        }
+
+    }),
     notLoggedIn: async (req, res, next) => {
         try {
             if (req.isAuthenticated()) {

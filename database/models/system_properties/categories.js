@@ -1,6 +1,5 @@
 const { UUIDV4 } = require("sequelize");
 const { Model, DataTypes, sequelize } = require("../../mysql");
-const countries = require("./countries");
 class categories extends Model { };
 categories = sequelize.define('categories', {
     id: {
@@ -15,8 +14,8 @@ categories = sequelize.define('categories', {
         unique: true,
     },
     handler: {
-        type: DataTypes.ENUM('business', 'general'),
-        defaultValue: 'general'
+        type: DataTypes.ENUM('business', 'charges', 'items', 'none'),
+        defaultValue: 'none'
     },
     description: {
         type: DataTypes.STRING
