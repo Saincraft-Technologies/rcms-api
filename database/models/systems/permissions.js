@@ -7,11 +7,8 @@ permissions = sequelize.define('permissions', {
         primaryKey: true,
     },
     name: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('all', 'read', 'write', 'delete'),
         allowNull: false
-    },
-    linux_permission_code: {
-        type: DataTypes.STRING
     },
     descriptions: {
         type: DataTypes.STRING,

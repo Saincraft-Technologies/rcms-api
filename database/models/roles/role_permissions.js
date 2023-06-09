@@ -9,11 +9,18 @@ role_permissions = sequelize.define('role_permissions', {
         autoIncrement: true,
         primaryKey: true,
         unique: true
+    },
+    handler:{
+        type:DataTypes.STRING,
     }
 }, { paranoid: true });
 
 roles.belongsToMany(permissions, { through: role_permissions });
 permissions.belongsToMany(roles, { through: role_permissions });
+role_permissions.belongsTo(roles);
+roles.hasMany(role_permissions);
+role_permissions.belongsTo(permissions);
+permissions.hasMany(role_permissions)
 
 const hooks = {
     afterCreate: (Role, payload) => {

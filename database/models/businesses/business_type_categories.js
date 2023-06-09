@@ -26,7 +26,8 @@ business_types.hasMany(business_type_categories);
 business_type_categories.belongsTo(business_types);
 categories.hasMany(business_type_categories);
 business_type_categories.belongsTo(categories);
-business_type_categories.belongsTo(businesses);
 businesses.hasMany(business_type_categories);
+business_type_categories.belongsTo(businesses);
+
 
 module.exports = business_type_categories;
