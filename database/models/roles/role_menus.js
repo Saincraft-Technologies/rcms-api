@@ -14,6 +14,11 @@ role_menus = sequelize.define('role_menus', {
 roles.belongsToMany(menus, { through: role_menus });
 menus.belongsToMany(roles, { through: role_menus });
 
+menus.hasMany(role_menus);
+role_menus.belongsTo(menus);
+roles.hasMany(role_menus);
+role_menus.belongsTo(roles);
+
 const hooks = {
     afterCreate: (Role, payload) => {
         AddRoleMenu(Role, payload);

@@ -8,19 +8,12 @@ regulators = sequelize.define('regulators', {
         primaryKey: true,
         unique: true
     },
-    name: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
     identifier: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
     },
     id_length: {
         type: Sequelize.INTEGER,
         allowNull: false
-    },
-    description: {
-        type: Sequelize.STRING,
     },
 }, { paranoid: true });
 regulators.belongsTo(uploads);

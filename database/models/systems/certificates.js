@@ -22,6 +22,9 @@ certificates = sequelize.define('certificates', {
         type: Sequelize.DATE,
         allowNull: false
     },
+    expire_date: {
+        type: Sequelize.DATE,
+    },
 }, { paranoid: true });
 certificates.belongsTo(regulators);
 regulators.hasMany(certificates);

@@ -9,7 +9,6 @@ const currencies = require("./systems/currencies");
 const regions = require("./systems/regions");
 const roles = require("./systems/roles");
 const users = require("./systems/users");
-const { user_roles } = require("./users/user_roles");
 const { user_contacts } = require("./users/user_contacts");
 const { user_addresses } = require("./users/user_addresses");
 const { contact_authentications } = require("./users/contact_authentications");
@@ -22,6 +21,7 @@ const certificates = require("./systems/certificates");
 const identities = require("./systems/identities");
 const identity_uploads = require("./system_properties/identity_uploads");
 const disctrict = require("./governments/districts");
+const regulators = require('./systems/regulators');
 const disctrict_regulators = require("./districts/district_regulators");
 const agencies = require("./governments/agencies");
 const coorperations = require("./governments/coorperations");
@@ -48,8 +48,13 @@ const business_types = require("./businesses/business_types");
 const collections = require("./collectors/collections");
 const collectors = require("./collectors/collectors");
 const categories = require("./system_properties/categories");
-
+const user_role_permissions = require("./roles/user_role_permissions");
+const user_identities = require('./users/user_identities');
 module.exports = {
+    user_identities,
+    disctrict_regulators,
+    regulators,
+    user_role_permissions,
     business_items,
     business_types,
     collections,
@@ -91,12 +96,11 @@ module.exports = {
     users,
     user_addresses,
     user_contacts,
-    user_roles,
     regions,
     contacts,
     currencies,
     countries,
     addresses,
     authentications,
-    // certificates
+    certificates,
 }

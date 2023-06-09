@@ -9,6 +9,23 @@ var main = {
 main.indexes.push([`role`]);
 main.lists.push([['superadmin'], ['admin'], ['employer'], ['employee'], ['generic']]);
 MAIN.push([models.roles, main]);
+var main = {
+    indexes: [],
+    lists: []
+};
+// permissions
+main.indexes.push([`name`, `descriptions`]);
+main.lists.push([['all', 'all permissions'], ['read', 'permission to read only!'], ['write', 'permission to write!'], ['delete', 'permission to delete!']]);
+MAIN.push([models.permissions, main]);
+var main = {
+    indexes: [],
+    lists: []
+};
+// role permissions
+main.indexes.push([`handler`]);
+main.lists.push([['all']]);
+MAIN.push([models.role_permissions, main]);
+
 main = {
     indexes: [],
     lists: []
@@ -72,8 +89,17 @@ main.indexes.push([`name`, 'email', 'password', 'gender', 'birthdate', 'phone', 
 main.lists.push([
     ['Gideon Sainyeye', 'gsainyeye@gmail.com', '@73N@', 'MALE', '1991-07-07', '+255658598333', 'P.O.Box 123'],
     ['Johnson Mollel', 'johnsonmollel@outlook.com', '@73N@', 'MALE', '1998-05-17', '+255755220249', 'P.O.Box 123'],
+    ['Hussein Jx', 'husseincollege@gmail.com', '@73N@', 'MALE', '1998-05-17', '+255693391049', 'P.O.Box 123'],
 ]);
 MAIN.push([models.users, main]);
+var main = {
+    indexes: [],
+    lists: []
+};
+// user_role_permissions
+main.indexes.push([`name`, 'email', 'role']);
+main.lists.push([['system-owner', 'gsainyeye@gmail.com', 'superadmin'], ['ceo', 'johnsonmollel@outlook.com', 'superadmin']]);
+MAIN.push([models.user_role_permissions, main]);
 main = {
     indexes: [],
     lists: []
@@ -81,9 +107,34 @@ main = {
 // applications
 main.indexes.push([`app_name`, 'organisation_name', 'app_route', 'email', 'phone', 'key', 'app_secret', 'code', 'ip_address', 'response_format']);
 main.lists.push([
-    ['rcms-api', 'saincraft technologies', 'https://rcsm-api.builds.saincrafttechnologies.com', 'gsainyeye@gmail.com', '658598333', 'N3FLJBe8WKFUkJbGc0rO5DPPx1mEzlw0OZNcDwvQWE', 'lkij95t8vg0g958ghdfld03ir69gtjfkeurnfi4', '247', '::1', 'json']
+    ['rcms-api', 'saincraft technologies', 'https://rcsm-api.builds.saincrafttechnologies.com', 'gsainyeye@gmail.com', '+255658598333', 'N3FLJBe8WKFUkJbGc0rO5DPPx1mEzlw0OZNcDwvQWE', 'lkij95t8vg0g958ghdfld03ir69gtjfkeurnfi4', '247', '::1', 'json'],
+    ['rcms-frontend', 'saincraft technologies', 'https://rcsm-frontend.builds.saincrafttechnologies.com', 'husseincollege@gmail.com', '+255693391049', 'N3FLJBe8WKFUkJbGc0rO5DPPx1mEzlw0OZNcDwvQWE', 'lkij95t8vg0g958ghdfld03ir69gtjfkeurnfi4', '247', '::1', 'json']
 ]);
 MAIN.push([models.applications, main]);
+main = {
+    indexes: [],
+    lists: []
+};
+// applications
+main.indexes.push([`identifier`, 'id_length']);
+main.lists.push([
+    ['NIDA', 17],
+]);
+MAIN.push([models.regulators, main]);
 
+// identities
+main.indexes.push([`id_number`, 'issue_date', 'expire_date']);
+main.lists.push([
+    ['125452585245522853', new Date().setFullYear({ year: 2021, month: 8, date: 12 }), new Date().setFullYear({ year: 2025, month: 8, date: 12 })],
+]);
+MAIN.push([models.identities, main]);
+
+// applications
+main.indexes.push([`id_number`, 'issue_date', 'expire_date']);
+main.lists.push([
+    ['125452585245522853', new Date().toDateString(), new Date().toDateString()],
+    ['125452585245522853', new Date().toDateString(), new Date().toDateString()],
+]);
+MAIN.push([models.user_identities, main]);
 
 module.exports = MAIN;
