@@ -24,7 +24,7 @@ class Controllers extends Session {
     }
     async find(model, opt) {
         let t = await this.authorize();
-        console.log('tina', await t);
+        // console.log('tina', await t);
         if (t) {
             return JSON.parse(JSON.stringify(await models[model].findAll(opt)));
         } else {
@@ -33,7 +33,7 @@ class Controllers extends Session {
     }
     async findCount(model, opt) {
         let t = await this.authorize();
-        console.log(await t);
+        // console.log(await t);
         if (t) {
             return JSON.parse(JSON.stringify(await models[model].findCountBy(opt)));
         } else {
@@ -42,7 +42,7 @@ class Controllers extends Session {
     }
     async single(model, opt) {
         let t = await this.authorize();
-        console.log(await t);
+        // console.log(await t);
         if (t) {
             return JSON.parse(JSON.stringify(await models[model].findOne(opt)));
         } else {
@@ -51,7 +51,7 @@ class Controllers extends Session {
     }
     async create(model, data) {
         let t = await this.authorize();
-        console.log(await t);
+        // console.log(await t);
         if (t) {
             return JSON.parse(JSON.stringify(await models[model].build(data).save()));
         } else {
@@ -60,7 +60,7 @@ class Controllers extends Session {
     }
     async update(model, data, opt) {
         let t = await this.authorize();
-        console.log(await t);
+        // console.log(await t);
         if (t) {
             return JSON.parse(JSON.stringify(await models[model].update(data, opt)));
         } else {
@@ -69,7 +69,7 @@ class Controllers extends Session {
     }
     async sum(model, opt) {
         let t = await this.authorize();
-        console.log(await t);
+        // console.log(await t);
         if (t) {
             return JSON.parse(JSON.stringify(await models[model].findOne(opt)));
         } else {
@@ -78,7 +78,7 @@ class Controllers extends Session {
     }
     async delete(model, opt) {
         let t = await this.authorize();
-        console.log(await t);
+        // console.log(await t);
         if (t) {
             return JSON.parse(JSON.stringify(await models[model].destroy(opt)));
         } else {

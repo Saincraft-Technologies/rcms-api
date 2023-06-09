@@ -14,11 +14,11 @@ const generateUniqueIdentifier = async (initial = "SCT" || new String()) => {
     try {
         if (initial == "undefined") {
             let g = crypto.generateKeySync('hmac', { length: 36 });
-            console.log(g);
+            // console.log(g);
             return `STC-${g.export().toString('hex')}`;
         } else {
             let g = crypto.generateKeySync('hmac', { length: 31 });
-            console.log(await g.export().toString('hex'));
+            // console.log(await g.export().toString('hex'));
             return `${initial} - ${g.export().toString('hex')}`;;
         }
     } catch (err) {

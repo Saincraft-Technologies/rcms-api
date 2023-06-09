@@ -29,7 +29,7 @@ try {
   // );
 
   // Close the connection
-  console.log(dbConfig, process.env.DB_HOST);
+  // console.log(dbConfig, process.env.DB_HOST);
   var sequelize = new Sequelize(dbConfig.DB_NAME, dbConfig.DB_USER, dbConfig.DB_PASSWORD, {
     host: dbConfig.DB_HOST,
     port: dbConfig.DB_PORT,

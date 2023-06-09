@@ -12,13 +12,13 @@ class Session {
             let app = await models['applications'].findAll({ where: { key: this._request.headers.authorization.split(' ')[1] } });
             let auth = JSON.parse(JSON.stringify(app));
             if (!auth.length <= 0) {
-                console.log('am checking2', auth);
+                // console.log('am checking2', auth);
                 this._authorized = this._request.isAuthenticated();
                 this.#_token = 'Bearer ' + auth[0].key;
                 this._request.login({ key: this.#_token, app: auth[0] }, { session: false });
                 return this._authorized;
             } else {
-                console.log('am checking3', auth);
+                // console.log('am checking3', auth);
                  this._request.logout(async (err) => {
                     if (err) {
                         console.log('error::', err);

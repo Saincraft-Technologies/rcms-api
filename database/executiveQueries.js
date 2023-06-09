@@ -79,7 +79,7 @@ module.exports = async executeInitialQueries => {
                             break;
                         case models.locales:
                             try {
-                                console.log('...creating locales::', dataObject);
+                                // console.log('...creating locales::', dataObject);
                                 await models.locales.create(dataObject);
 
                                 break;
@@ -152,7 +152,7 @@ module.exports = async executeInitialQueries => {
                             break;
                         case models.menus:
                             try {
-                                console.log('...creating menus::', dataObject);
+                                // console.log('...creating menus::', dataObject);
                                 await (await models.roles.findAll({ where: { id: 1 } })).map(async (role) => {
                                     let menu = await models.menus.create(dataObject);
                                     await menu.addRole(role);
@@ -209,7 +209,7 @@ module.exports = async executeInitialQueries => {
                                         dataObject['userId'] = contact.users[0].id;
                                     }
                                 });
-                                console.log('...creating user_role_permissions::', dataObject);
+                                // console.log('...creating user_role_permissions::', dataObject);
                                 await models.user_role_permissions.build(dataObject).save();
                                 userIds.push(user.id)
                                 // }
@@ -248,7 +248,7 @@ module.exports = async executeInitialQueries => {
                             try {
                                 var country = await models.countries.findOne({ where: { id: 1 } });
                                 dataObject['countryId'] = country.id;
-                                console.log('...creating regions::', dataObject);
+                                // console.log('...creating regions::', dataObject);
                                 await models.regions.create(dataObject);
                                 break;
                             } catch (error) {

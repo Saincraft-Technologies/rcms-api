@@ -33,7 +33,7 @@ module.exports = {
                 try {
                     let data = req.body;
                     data['parent'] = data.parentId;
-                    console.log('----->', data);
+                    // console.log('----->', data);
                     await (await control.create('menus', data));
                     res.json({ status: true, notification: 'successfully added menu!' })
                 } catch (err) {
@@ -58,7 +58,7 @@ module.exports = {
                 try {
                     let data = req.body;
                     data['parent'] = data.parentId;
-                    console.log(data);
+                    // console.log(data);
                     await (await control.update('menus', data, { where: { id: req.params.id } }));
                     res.json({ status: true, notification: 'successfully updated menu!' })
                 } catch (err) {
