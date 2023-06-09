@@ -81,7 +81,7 @@ main = {
 // applications
 main.indexes.push([`app_name`, 'organisation_name', 'app_route', 'email', 'phone', 'key', 'app_secret', 'code', 'ip_address', 'response_format']);
 main.lists.push([
-    ['rcms-api', 'saincraft technologies', 'https://rcsm-api.builds.saincrafttechnologies.com', 'gsainyeye@gmail.com', '658598333', 'iuuhUYHyuhyrhg7357824hhfh8f2f8248g87fp', 'lkij95t8vg0g958ghdfld03ir69gtjfkeurnfi4', '247', '::1', 'json']
+    ['rcms-api', 'saincraft technologies', 'https://rcsm-api.builds.saincrafttechnologies.com', 'gsainyeye@gmail.com', '658598333', 'N3FLJBe8WKFUkJbGc0rO5DPPx1mEzlw0OZNcDwvQWE', 'lkij95t8vg0g958ghdfld03ir69gtjfkeurnfi4', '247', '::1', 'json']
 ]);
 MAIN.push([models.applications, main]);
 
