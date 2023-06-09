@@ -32,7 +32,6 @@ const ministry_agencies = require("./ministries/ministry_agencies");
 const streets = require("./governments/streets");
 const villages = require("./governments/villages");
 const wards = require("./governments/wards");
-const business_categories = require("./businesses/business_categories");
 const business_surveys = require("./businesses/business_surveys");
 const business_type_categories = require("./businesses/business_type_categories");
 const businesses = require("./businesses/businesses");
@@ -64,7 +63,6 @@ module.exports = {
     items,
     charge_categories,
     charges,
-    business_categories,
     business_surveys,
     business_type_categories,
     businesses,
