@@ -4,32 +4,14 @@ const models = require('../database/models/module_exporter');
 const { Op } = require('../database/mysql');
 const Controllers = require('../controllers/controls/control');
 const { hasToken, rateLimit, apiLimit } = require('../passport/passport');
+const Getter = require('./getter');
 // const requestor = require('../controllers/requestor');
 const key = process.env.D_API_KEY;
 
 
 router.get('/:model/list', /*apiLimit,*/ hasToken, async (req, res) => {
-    // req.user
-    console.log(req.user)
-    const control = new Controllers(req);
-    // console.log('queries:::', new requestor(req));
-    // res.header("Access-Control-Allow-Origin", req.headers);
-    // console.log(req.headers);
-    //   res.setHeader();
-    try {
-        if (req.query.rel != undefined && req.query.rel != '') {
-            let modelz = req.query.rel.split(',');
-            var relationsArray = [];
-            for (let model of modelz) {
-                relationsArray.push({ model: models[model] });
-            }
-            return res.status(200).setHeader('Content-Type', 'application/json').json({ status: true, notification: 'success fetching ' + req.params.model, url: req.baseUrl + req.url, data: await (control.find(req.params.model, { include: relationsArray })) });
-        }
-        return res.status(200).setHeader('Content-Type', 'application/json').json({ status: true, notification: 'success fetching ' + req.params.model, url: req.baseUrl + req.url, data: await (control.find(req.params.model, {})) });
-    } catch (err) {
-        console.log(err);
-        return res.status(500).setHeader('Content-Type', 'application/json').json({ status: false, notification: err.message, url: req.baseUrl + req.url, data: null });
-    }
+    const getter = await new Getter(req);
+    res.status(200).setHeader('Content-Type', 'application/json').json(await getter.get_v2());
 });
 router.get('/:model/:id', hasToken, async (req, res) => {
     const control = new Controllers(req);
