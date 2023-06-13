@@ -62,8 +62,15 @@ module.exports = async executeInitialQueries => {
                             try {
                                 console.log('...creating role_permissions::', dataObject, roleIds);
                                 await (await models.roles.findAll()).map(async (role, i) => {
-                                    dataObject['permissionId'] = await (await models.permissions.findAll()).at(0).getDataValue('id');
-                                    dataObject['roleId'] = role.id;
+                                    if (role.role == 'superadmin') {
+
+                                        await (await models.permissions.findAll()).map(async (permission, i) => {
+                                            if (i == 0) {
+                                                dataObject['permissionId'] = permission.permission;
+                                            }
+                                        });
+                                        dataObject['roleId'] = role.id;
+                                    }
                                 });
                                 await models.role_permissions.create(dataObject);
                                 roleIds.push(role.id);
