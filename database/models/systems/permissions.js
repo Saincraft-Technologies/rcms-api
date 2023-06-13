@@ -6,7 +6,7 @@ permissions = sequelize.define('permissions', {
         autoIncrement: true,
         primaryKey: true,
     },
-    name: {
+    permission: {
         type: DataTypes.ENUM('all', 'read', 'write', 'delete'),
         allowNull: false
     },

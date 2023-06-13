@@ -45,14 +45,14 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (user, done) {
     // console.log('am deserializing', user.id);
     try {
-        return models.contacts.findOne({ where: { email: user.email }, include: [{ model: models.users, include: [{ model: models.roles }, { model: models.locales }, { model: models.uploads }] }, { model: models.authentications }] }).then(contact => {
+        return models.contacts.findOne({ where: { email: user.email }, include: [{ model: models.users, include: [{ model: models.role_permissions, include: [{ model: models.roles }] }, { model: models.locales }, { model: models.uploads }] }, { model: models.authentications }] }).then(contact => {
             let _contact = JSON.parse(JSON.stringify(contact));
             let _user = _contact.users[0];
             let userData = {
                 id: _user.id,
                 name: _user.name,
                 email: _user.email,
-                role: _user.roles[0],
+                role: _user.role_permissions[0].role,
                 userId: _user.id,
                 language: _user.locale[0],
                 avatar: (_user.upload) ? _user.upload.path : null,

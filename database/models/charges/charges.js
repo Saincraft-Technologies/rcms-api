@@ -6,7 +6,7 @@ charges = sequelize.define('charges', {
         autoIncrement: true,
         primaryKey: true,
     },
-    name: { type: DataTypes.STRING },
+    charge: { type: DataTypes.STRING },
     descriptions: { type: DataTypes.STRING }
 }, { paranoid: true });
 

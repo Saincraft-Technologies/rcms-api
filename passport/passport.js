@@ -13,7 +13,7 @@ module.exports = {
         try {
             email = email.trim();
             // console.log(await contact_authentications.findAll({ where: { id: { email: email } }, include: { model: contacts, include: { model: users } } }));
-            const contact = JSON.parse(JSON.stringify(await models.contacts.findOne({ where: { email: email }, include: [{ model: models.authentications }, { model: models.users, include: [{ model: models.roles }, { model: models.locales }, { model: models.uploads }] }] })));
+            const contact = JSON.parse(JSON.stringify(await models.contacts.findOne({ where: { email: email }, include: [{ model: models.authentications }, { model: models.users, include: [{ model: models.role_permissions, include: [{ model: models.roles }] }, { model: models.locales }, { model: models.uploads }] }] })));
             console.log(await contact);
             const session = JSON.parse(JSON.stringify(await models.financials.findOne({ where: { active: 1 } })));
             // const _user = JSON.parse(JSON.stringify(await user))[0];
@@ -23,34 +23,37 @@ module.exports = {
             }
             const _user = await contact.users[0];
             let passVerify = await passwordHashVerify(password, contact.authentications[0].salt, contact.authentications[0].hash);
-            if (_user.roles.length <= 0) {
+            if (_user.role_permissions.length > 0) {
+                console.log(_user.role_permissions[0]);
+                if (!_user.role_permissions[0].role) {
 
-            } else {
-
-                console.log('...password verified!', await passVerify);
-                if (passVerify) {
-                    let userData = {
-                        id: _user.id,
-                        name: _user.name,
-                        email: contact.email,
-                        role: _user.roles[0],
-                        userId: _user.id,
-                        session: session.name,
-                        sessionId: session.id,
-                        language: _user.locale,
-                        avatar: (_user.upload) ? _user.upload.path : null,
-                        theme: 'light',
-                        home: (_user.roles[0].role.includes('superadmin')) ? '/superadmin' : (_user.roles[0].role == 'admin') ? '/admin' : (_user.roles[0].role.includes('dealer')) ? '/dealer' : (_user.roles[0].role.includes('business')) ? '/business' : (_user.roles[0].role.includes('warehouse')) ? '/warehouse' : (_user.roles[0].role.includes('store')) ? '/store' : '/',
-                    }
-                    global.language = _user.locale[0];
-                    console.log(userData);
-                    return done(null, userData);
                 } else {
-                    return done(null, false, {
-                        message: 'incorrect password!'
-                    });
-                };
 
+                    console.log('...password verified!', await passVerify);
+                    if (passVerify) {
+                        let userData = {
+                            id: _user.id,
+                            name: _user.name,
+                            email: contact.email,
+                            role: _user.role_permissions[0].role,
+                            userId: _user.id,
+                            session: session.name,
+                            sessionId: session.id,
+                            language: _user.locale,
+                            avatar: (_user.upload) ? _user.upload.path : null,
+                            theme: 'light',
+                            home: (_user.role_permissions[0].role.role.includes('superadmin')) ? '/superadmin/dashboard' : (_user.role_permissions[0].role.role == 'admin') ? '/admin' : (_user.role_permissions[0].role.role.includes('dealer')) ? '/dealer' : (_user.role_permissions[0].role.role.includes('business')) ? '/business' : (_user.role_permissions[0].role.role.includes('warehouse')) ? '/warehouse' : (_user.role_permissions[0].role.role.includes('store')) ? '/store' : '/',
+                        }
+                        global.language = _user.locale[0];
+                        console.log(userData);
+                        return done(null, userData);
+                    } else {
+                        return done(null, false, {
+                            message: 'incorrect password!'
+                        });
+                    };
+
+                }
             }
         } catch (err) {
             console.log(err);
@@ -63,7 +66,6 @@ module.exports = {
         try {
             if (req.isAuthenticated()) {
                 let auth = JSON.parse(JSON.stringify(await models['applications'].findAll({ where: { key: process.env.D_API_KEY } })));
-
                 console.log('auth', auth, process.env.D_API_KEY);
                 if (!auth.length <= 0) {
                     console.log('authentifications', auth);
@@ -126,20 +128,20 @@ module.exports = {
     notLoggedIn: async (req, res, next) => {
         try {
             if (req.isAuthenticated()) {
-                // console.log("my request::", req.session.passport.user.role);
+                console.log("my request::", req.session.passport.user.role);
                 switch (req.session.passport.user.role.role) {
                     case 'superadmin':
-                        res.redirect('/superadmin');
+                        res.redirect('/');
                         break;
                     case 'admin':
-                        res.redirect('/admin');
+                        res.redirect('/');
                         break;
 
                     case 'distributor':
-                        res.redirect('/distributor');
+                        res.redirect('/');
                         break;
                     case 'client':
-                        res.redirect('/client');
+                        res.redirect('/');
                         break;
                     default:
                         req.logOut(async (err) => {

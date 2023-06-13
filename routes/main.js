@@ -5,42 +5,35 @@ const { Op } = require('../database/mysql');
 const Controllers = require('../controllers/controls/control');
 const { hasToken, rateLimit, apiLimit } = require('../passport/passport');
 const Getter = require('./getter');
+const Poster = require('./poster');
 // const requestor = require('../controllers/requestor');
 const key = process.env.D_API_KEY;
 
 
 router.get('/:model/list', /*apiLimit,*/ hasToken, async (req, res) => {
-    const getter = await new Getter(req);
-    res.status(200).setHeader('Content-Type', 'application/json').json(await getter.get_v2());
-});
-router.get('/:model/:id', hasToken, async (req, res) => {
-    const control = new Controllers(req);
     try {
-
-        if (req.query.rel != undefined && req.query.rel != '') {
-            let modelz = req.query.rel.split(',');
-            var relationsArray = [];
-            for (let model of modelz) {
-                relationsArray.push({ model: models[model] });
-            }
-            let data = await control.single(req.params.model, { where: { id: req.params.id }, include: relationsArray });
-            if (data) {
-                return res.status(200).setHeader('Content-Type', 'application/json').json({ status: true, notification: 'successfully queried ' + req.params.model, url: req.baseUrl + req.url, data: data });
-            }
-            return res.status(403).setHeader('Content-Type', 'application/json').json({ status: false, notification: 'no data found!', data: null });
+        const getter = await new Getter(req);
+        const response = await getter.get_v2();
+        if (response.status) {
+            res.status(200).setHeader('Content-Type', 'application/json').json(response);
+        } else {
+            res.status(500).setHeader('Content-Type', 'application/json').json(response);
         }
 
-        let data = await control.single(req.params.model, { where: { id: req.params.id } });
-        if (data) {
-            return res.status(200).setHeader('Content-Type', 'application/json').json({ status: true, notification: 'successfully queried ' + req.params.model, url: req.baseUrl + req.url, data: data });
-        }
-        return res.status(403).setHeader('Content-Type', 'application/json').json({ status: false, notification: 'no data found!', data: null });
-        // return res.status(200).json({ status: true, notification: 'successfully queried ' + req.params.model, url: req.baseUrl + req.url, data: await models[req.params.model].findOne({ where: { id: req.params.id } }) });
     } catch (err) {
-        console.log(err);
-        return res.status(403).setHeader('Content-Type', 'application/json').json({ status: false, notification: err.message, url: req.baseUrl + req.url, data: null });
+        res.status(500).setHeader('Content-Type', 'application/json').json({ status: false, notification: 'failed!', data: null, error: err.message })
     }
 });
+router.get('/:model/of/:id', hasToken, async (req, res) => {
+    const getter = await new Getter(req);
+    res.status(200).setHeader('Content-Type', 'application/json').json(await getter.getId_v2());
+});
+router.get('/:model/auth/:email', apiLimit, hasToken, async (req, res) => {
+    const getter = await new Getter(req);
+    res.status(200).setHeader('Content-Type', 'application/json').json(await getter.getEmail_v2());
+});
+
+
 router.get('/deleted/:model/list', hasToken, async (req, res) => {
     const control = new Controllers(req);
     try {
@@ -60,13 +53,17 @@ router.get('/deleted/:model/list', hasToken, async (req, res) => {
     }
 });
 router.post('/:model/create', async (req, res) => {
-    const control = new Controllers(req);
     try {
-        console.log(req.body);
-        return res.status(200).setHeader('Content-Type', 'application/json').json({ status: true, notification: 'successfully saved ' + req.params.model, data: await control.create(req.params.model, req.body), error: null });
+        const poster = await new Poster(req);
+        const response = await poster.post_v2();
+        if (response.status) {
+            res.status(200).setHeader('Content-Type', 'application/json').json(response);
+        } else {
+            res.status(500).setHeader('Content-Type', 'application/json').json(response);
+        }
+
     } catch (err) {
-        console.log(req.body);
-        return res.status(500).setHeader('Content-Type', 'application/json').json({ status: false, notification: 'failed to saved ' + req.params.model, data: null, error: err.message });
+        res.status(500).setHeader('Content-Type', 'application/json').json({ status: false, notification: 'failed!', data: null, error: err.message })
     }
 });
 

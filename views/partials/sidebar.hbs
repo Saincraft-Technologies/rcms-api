@@ -23,7 +23,7 @@
                 {{#each ../sub_menu}}
 
                 {{#ifEquals parent ../id}}
-                {{#ifEquals route_name '/home'}}
+                {{!-- {{#ifEquals route_name '/home'}}
                 <li class="side-nav-item _item" id="{{ display_name}}-small-li">
                     <a onclick="loadPage('/home','{{ display_name}}', '{{ display_name}}', '{{ ../display_name}}')"
                         aria-expanded="false" id="{{ display_name}}-small-a">
@@ -34,15 +34,15 @@
                         <span class="menu-arrow"></span>
                     </a>
                 </li>
-                {{else}}
+                {{else}} --}}
                 <li class="side-nav-item _item" id="{{ display_name}}-small-li">
-                    <a onclick="loadPage('{{route_name}}','{{ display_name}}', '{{ display_name}}', '{{ ../display_name}}')"
+                    <a onclick="loadPage('/superadmin{{route_name}}','{{ display_name}}', '{{ display_name}}', '{{ ../display_name}}')"
                         aria-expanded="false">
                         <i class="{{icon}}"></i>
                         <span>{{ display_name}}</span>
                     </a>
                 </li>
-                {{/ifEquals}}
+                {{!-- {{/ifEquals}} --}}
                 {{/ifEquals}}
                 {{/each}}
             </ul>

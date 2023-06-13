@@ -9,6 +9,62 @@ const BYTE_TO_STRING_ENCODING = 'hex';
 
 
 const capitalize = s => s.replace(/./, c => c.toUpperCase());
+const pluralize = (noun) => {
+    let Noun = new String(noun);
+    console.log();
+    if (Noun.endsWith(`y`)) {
+        console.log('length', Noun.length);
+        return Noun.slice(0, noun.length - 1) + 'ies';
+    }
+    if (Noun.endsWith(`fe`)) {
+        console.log('length', Noun.length);
+        return Noun.slice(0, noun.length - 2) + 'ives';
+    }
+    if (Noun.endsWith(`f`)) {
+        console.log('length', Noun.length);
+        return Noun.slice(0, noun.length - 1) + 'eves';
+    }
+    return noun + 's';
+};
+const singularize = (plural) => {
+    let Noun = new String(plural);
+    console.log();
+    switch (Noun.charAt(plural.length - 2)) {
+        case 'e':
+            if (Noun.endsWith(`ies`)) {
+                console.log('length', Noun.length);
+                return Noun.slice(0, plural.length - 3) + 'y';
+            }
+            if (Noun.endsWith(`ives`)) {
+                console.log('length', Noun.length);
+                return Noun.slice(0, plural.length - 3) + 'fe';
+            }
+            if (Noun.endsWith(`eves`)) {
+                console.log('length', Noun.length);
+                return Noun.slice(0, plural.length - 3) + 'f';
+            }
+            if (Noun.endsWith(`ees`)) {
+                console.log('length', Noun.length);
+                return Noun.slice(0, plural.length - 1);
+            }
+            if (Noun.endsWith(`es`)) {
+                console.log('length', Noun.length);
+                return Noun.slice(0, plural.length - 1);
+            }
+            break;
+        case `\ [a-zA-z] -g`:
+            break;
+        default:
+            if (Noun.endsWith('s')) {
+                console.log('other things');
+                console.log('noun ===========>>>>>', Noun.slice(0, plural.length - 1));
+                return Noun.slice(0, plural.length - 1);
+            } else {
+                return plural;
+            }
+            break;
+    }
+};
 
 const generateUniqueIdentifier = async (initial = "SCT" || new String()) => {
     try {
@@ -86,4 +142,13 @@ const passwordHashVerify = (password = new String(), salt = new String(), dbHash
     });
 };
 
-module.exports = { generateRandom, generateUniqueIdentifier, passwordHash, passwordHashVerify };
+const isEmpty = (object) => {
+    try {
+        return JSON.stringify(object) === '{}';
+    } catch (err) {
+        console.log(err.message);
+    }
+}
+
+console.log(singularize('roles'))
+module.exports = { isEmpty, generateRandom, generateUniqueIdentifier, passwordHash, passwordHashVerify, capitalize, pluralize, singularize };

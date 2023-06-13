@@ -3,44 +3,41 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="page-title">
-                    <i class="mdi mdi-office-building-cog title_icon"></i> Menus
+                    <i class="{{menuIcon}} title_icon"></i> {{models}}
                     <button type="button" class="btn btn-outline-info btn-rounded alignToTitle"
-                        onclick="largeModal('/menus/create', 'create menu', 'mdi mdi-plus text-info')"> <i
+                        onclick="largeModal('/superadmin{{creator}}', 'create {{model}}', 'mdi mdi-plus text-info')"> <i
                             class="mdi mdi-plus"></i>
-                        add menu
+                        add {{model}}
                     </button>
                 </h4>
             </div> <!-- end card body-->
         </div> <!-- end card -->
     </div><!-- end col-->
 </div>
-
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-body menu_content">
+            <div class="card-body {{_model}}_content">
 
             </div>
         </div>
     </div>
 </div>
-
 <!-- modyfy section -->
 <script>
-    {{!-- $('document').ready(function () {
-        showAllMenus();
-    }); --}}
-
-    function showAllMenus() {
+    $('document').ready(function () {
+        showAllManages();
+    });
+    function showAllManages() {
         $.ajax({
-            url: '/menus/list',
+            url: '/superadmin/{{listRoute}}?{{relationQuery}}',
             success: function (response) {
-                $('.menu_content').html(response);
+                $('.{{_model}}_content').html(response);
                 initDataTable('basic-datatable');
             }
         });
     }
-    showAllMenus();
+    showAllManages();
 </script>
 
 <!-- permission insert and update -->

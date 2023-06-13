@@ -24,8 +24,8 @@ class Controllers extends Session {
     }
     async find(model, opt) {
         let t = await this.authorize();
-        // console.log('tina', await t);
         if (t) {
+            console.log('tina', model);
             return JSON.parse(JSON.stringify(await models[model].findAll(opt)));
         } else {
             throw new Error('unauthorized!');
@@ -35,7 +35,7 @@ class Controllers extends Session {
         let t = await this.authorize();
         // console.log(await t);
         if (t) {
-            return JSON.parse(JSON.stringify(await models[model].findCountBy(opt)));
+            return JSON.parse(JSON.stringify(await models[model].findAndCountAll(opt)));
         } else {
             throw new Error('unauthorized!');
         }
@@ -71,7 +71,7 @@ class Controllers extends Session {
         let t = await this.authorize();
         // console.log(await t);
         if (t) {
-            return JSON.parse(JSON.stringify(await models[model].findOne(opt)));
+            return JSON.parse(JSON.stringify(await models[model].sum(opt)));
         } else {
             throw new Error('unauthorized!');
         }

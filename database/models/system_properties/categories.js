@@ -8,7 +8,7 @@ categories = sequelize.define('categories', {
         primaryKey: true,
         unique: true
     },
-    name: {
+    category: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
