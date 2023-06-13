@@ -61,19 +61,16 @@ module.exports = async executeInitialQueries => {
                         case models.role_permissions:
                             try {
                                 console.log('...creating role_permissions::', dataObject, roleIds);
-                                await (await models.roles.findAll()).map(async (role, i) => {
-                                    if (role.role == 'superadmin') {
-
-                                        await (await models.permissions.findAll()).map(async (permission, i) => {
-                                            if (i == 0) {
-                                                dataObject['permissionId'] = permission.permission;
-                                            }
-                                        });
-                                        dataObject['roleId'] = role.id;
-                                    }
-                                });
+                                let roles = await (await models.roles.findAll({ where: { role: 'superadmin' } }));
+                                if (!roles.length <= 0) {
+                                    dataObject['roleId'] = roles[0].id;
+                                    await (await models.permissions.findAll()).map(async (permission, i) => {
+                                        if (i == 0) {
+                                            dataObject['permissionId'] = permission.id;
+                                        }
+                                    });
+                                }
                                 await models.role_permissions.create(dataObject);
-                                roleIds.push(role.id);
                                 break;
                             } catch (error) {
                                 if (error.message) {

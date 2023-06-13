@@ -34,9 +34,18 @@ main.indexes.push([`display_name`, `route_name`, `parent`, `icon`, 'superadmin',
 main.lists.push([
     ['Super-admin', '#', 0, 'mdi mdi-account-cog', null, 0, null],
     ['Dashboard', '#', 0, 'mdi mdi-store', null, 0, null],
+    ['Management', '#', 0, 'mdi mdi-cog', null, 0, null],
+    ['Accounts', '#', 0, 'mdi mdi-table', null, 0, null],
+    ['Reports', '#', 0, 'mdi mdi-file-pdf-box', null, 0, null],
+    ['Preferences', '#', 0, 'mdi mdi-wrench', null, 0, null],
     ['Settings', '#', 0, 'mdi mdi-cog', null, 0, null],
-    ['Menus', '/menus', 3, 'mdi mdi-order-bool-descending-variant', null, 0, null],
-    ['Language', '/locales', 3, 'mdi mdi-yen', null, 0, null],
+    ['Menus', '/menus/index', 7, 'mdi mdi-order-bool-descending-variant', null, 0, null],
+    ['Roles', '/roles/index', 1, 'mdi mdi-account-star', null, 0, null],
+    ['Pemissions', '/permissions/index', 1, 'mdi mdi-account-star-variant', null, 0, null],
+    ['Role-Permissions', '/permissions/index', 1, 'mdi mdi-account-setting', null, 0, null],
+    ['Users', '/users/index', 1, 'mdi mdi-account-multiple', null, 0, null],
+    ['Locales', '/locales/index', 7, 'mdi mdi-translate', null, 0, null],
+    ['Applications', '/applications/index', 7, 'mdi mdi-server-network', null, 0, null],
 ]);
 MAIN.push([models.menus, main]);
 main = {

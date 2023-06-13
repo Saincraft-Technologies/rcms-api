@@ -13,10 +13,15 @@
 
         <ul class="list-unstyled topbar-right-menu float-right mb-0">
 
+
+
+
+            {{!-- profile naviagation --}}
+
             <li class="dropdown notification-list mt-3 mr-3">
                 <input type="checkbox" value="{{viewManager.signups.theme}}" name="changeTheme" id="changeTheme"
                     data-switch="dark" {{#ifEquals viewManager.signups.theme 'light' }}checked{{else}} {{/ifEquals}} />
-                <label for="changeTheme" onclick="changeTheme();" data-on-label="'dark" data-off-label="'light"></label>
+                <label for="changeTheme" onclick="changeTheme();" data-on-label="dark" data-off-label="light"></label>
                 <script>
                     function changeTheme() {
                         var value = $('#changeTheme').val();
@@ -37,9 +42,9 @@
                         });
                     };</script>
             </li>
-            {{!-- <li class="dropdown notification-list">
+            <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button"
-                    aria-haspopup="false" aria-expanded="false" onclick="getLanguageList()" title="'change 'language">
+                    aria-haspopup="false" aria-expanded="false" onclick="getLanguageList()" title="change language">
                     <i class="mdi mdi-currency-twd noti-icon"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-sm">
@@ -47,27 +52,24 @@
                     <!-- item-->
                     <div class="dropdown-item noti-title">
                         <h5 class="m-0">
-                            'Languages
+                            Languages
                         </h5>
                     </div>
 
                     <div id="language-list" style="min-height: 150px; width:100%; margin:0;">
                     </div>
                 </div>
-            </li> --}}
+            </li>
 
 
             {{!-- profile naviagation --}}
-            <!-- <li class="dropdown notification-list">
+            <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" href="#"
                     role="button" aria-haspopup="false" aria-expanded="false">
                     <span class="account-user-avatar">
-                        <div class="mt-0 rounded-circle js--image-preview" {{#if viewManager.avatar}} style="background-image: url(/{{viewManager.avatar}});
-                        width:38px;height:38px; background-color: #F5F5F5; top:-2px;" {{else}}style="background-image: url('{{{cdn 'public'}}}/images/avatar.jpg);
-                        width:38px;height:38px; background-color: #F5F5F5; top:-2px;" {{/if}}>
+                        <div class="mt-0 rounded-circle js--image-preview" style="background-image: url({{cdn}}/uploads/images/users/{{{kaimage viewManager.name}}}_user_image_.png);
+                        width:38px;height:38px; background-color: #F5F5F5; top:-2px;">
                         </div>
-                        {{!-- <img src="{{{cdn 'public}/uploads/images/users/{{{kaimage viewManager.name}}}.jpg" alt=""
-                            class="rounded-circle"> --}}
                     </span>
                     <span>
                         <span class="account-user-name">{{viewManager.name}}</span>
@@ -78,33 +80,39 @@
 
                 <div
                     class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
-                    
+                    <!-- item-->
                     <div class=" dropdown-header noti-title row">
-                        <h6 class="text-overflow m-0">welcome!</h6><small
+                        <h6 class="text-overflow m-0">
+                            'welcome!</h6><small
                             style="word-wrap:break-word; font-size:xx-small;">{{viewManager.email}}</small>
                     </div>
 
-                    <a href="#" class="dropdown-item notify-item">
+                    <!-- item-->
+                    <a href="#" onclick="loadPage('{{viewManager.home}}/profile', 'id', 'Profile')"
+                        class="dropdown-item notify-item">
                         <i class="mdi mdi-account-circle mr-1"></i>
-                        <span>'My Account</span>
+                        <span> 'My Account</span>
                     </a>
+                    <!-- item-->
                     <a href="#" onclick="loadPage('/settings','Settings')" class="dropdown-item notify-item">
                         <i class="mdi mdi-account-edit mr-1"></i>
-                        <span>'settings</span>
+                        <span> 'settings</span>
                     </a>
+                    <!-- item-->
                     <a href="mailto:support@saincrafttechnologies.com?Subject=Help%20On%20This" target="_blank"
                         class="dropdown-item notify-item">
                         <i class="mdi mdi-lifebuoy mr-1"></i>
-                        <span>'Support</span>
+                        <span> 'Support</span>
                     </a>
 
+                    <!-- item-->
                     <a href="/auth/logout" class="dropdown-item notify-item">
                         <i class="mdi mdi-logout mr-1"></i>
-                        <span>'Logout</span>
+                        <span>Logout</span>
                     </a>
 
                 </div>
-            </li> -->
+            </li>
         </ul>
         <a class="button-menu-mobile disable-btn">
             <div class="lines">
@@ -116,7 +124,8 @@
         <div class="visit_website">
             <h4 style="color: #fff; float: left; margin-top:1.5rem;">Revenue Collector-API</h4>
             {{!-- <a href="/" target="" class="btn btn-outline-light ml-3">'Visit Website</a> --}}
-            <img class="hidden content-placeholder mt-2 ml-2" src="{{{cdn 'public'}}}/images/loader.gif" alt="" height="35px;">
+            <img class="hidden content-placeholder mt-2 ml-2" src="{{{cdn 'public'}}}/images/loader.gif" alt=""
+                height="35px;">
 
         </div>
     </div>
