@@ -32,18 +32,17 @@ router.get('/:role/:model/index', isLoggedIn, async (req, res) => {
     let queries = req.query;
     if (!isEmpty(req.query)) {
         if (req.cookies[relationQuery.split('=')[0]]) {
-            let creator = `/${req.params.model}/create`
+            let creator = `/${req.params.role}/${req.params.model}/create`
             res.render(`${req.params.role}/manager/index`, { layout: false, listRoute: `${req.session.passport.user.role.role}/${req.params.model}/list`, menuIcon: menuIcon.icon, model: model, _model: req.params.model, models: models, relationQuery: relationQuery, creator: creator })
         } else {
-
             console.log(relationQuery.split('=')[0]);
             console.log('relation queries', model);
-            let creator = `/${req.params.model}/create`
+            let creator = `/${req.params.role}/${req.params.model}/create`
             res.render(`${req.params.role}/manager/index`, { layout: false, listRoute: `${req.session.passport.user.role.role}/${req.params.model}/list`, menuIcon: menuIcon.icon, model: model, _model: req.params.model, models: models, relationQuery: relationQuery, creator: creator })
         }
     } else {
         console.log('am here');
-        let creator = `/${req.params.model}/create`
+        let creator = `/${req.params.role}/${req.params.model}/create`
         res.render(`${req.params.role}/manager/index`, { layout: false, listRoute: `${req.session.passport.user.role.role}/${req.params.model}/list`, menuIcon: menuIcon.icon, model: model, _model: req.params.model, models: models, relationQuery: relationQuery, creator: creator })
     }
 });
@@ -107,17 +106,17 @@ router.get('/:role/:model/create', isLoggedIn, user().none(), async (req, res) =
                 params[0][norm] = await (await control.find(`${norm}`, {}));
                 console.log('norm =====>>>>>', ...params);
             }
-            params[0]['action'] = `${req.params.role}/${req.params.model}/create`;
+            params[0]['action'] = `/backend/${req.params.role}/${req.params.model}/create`;
             console.log(...params);
             res.render(`${req.params.role}/${req.params.model}/create`, ...params);
         } else {
-            params[0]['action'] = `${req.params.role}/${req.params.model}/create`;
+            params[0]['action'] = `/backend/${req.params.role}/${req.params.model}/create`;
             console.log(...params);
             res.render(`${req.params.role}/${req.params.model}/create`, ...params);
         }
 
     } else {
-        params[0]['action'] = `${req.params.role}/${req.params.model}/create`;
+        params[0]['action'] = `/backend/${req.params.role}/${req.params.model}/create`;
         res.render(`${req.params.role}/${req.params.model}/create`, { layout: false });
     }
 
