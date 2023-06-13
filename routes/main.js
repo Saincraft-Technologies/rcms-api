@@ -11,6 +11,7 @@ const key = process.env.D_API_KEY;
 
 
 router.get('/:model/list', /*apiLimit,*/ hasToken, async (req, res) => {
+    console.log('am here');
     try {
         const getter = await new Getter(req);
         const response = await getter.get_v2();

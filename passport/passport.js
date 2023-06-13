@@ -42,7 +42,7 @@ module.exports = {
                             language: _user.locale,
                             avatar: (_user.upload) ? _user.upload.path : null,
                             theme: 'light',
-                            home: (_user.role_permissions[0].role.role.includes('superadmin')) ? '/superadmin/dashboard' : (_user.role_permissions[0].role.role == 'admin') ? '/admin' : (_user.role_permissions[0].role.role.includes('dealer')) ? '/dealer' : (_user.role_permissions[0].role.role.includes('business')) ? '/business' : (_user.role_permissions[0].role.role.includes('warehouse')) ? '/warehouse' : (_user.role_permissions[0].role.role.includes('store')) ? '/store' : '/',
+                            home: (_user.role_permissions[0].role.role.includes('superadmin')) ? '/backend/'+_user.role_permissions[0].role.role : (_user.role_permissions[0].role.role == 'admin') ? '/admin' : (_user.role_permissions[0].role.role.includes('dealer')) ? '/dealer' : (_user.role_permissions[0].role.role.includes('business')) ? '/business' : (_user.role_permissions[0].role.role.includes('warehouse')) ? '/warehouse' : (_user.role_permissions[0].role.role.includes('store')) ? '/store' : '/',
                         }
                         global.language = _user.locale[0];
                         console.log(userData);

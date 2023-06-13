@@ -30,7 +30,7 @@
     });
     function showAllManages() {
         $.ajax({
-            url: '/superadmin/{{listRoute}}?{{relationQuery}}',
+            url: '/backend/{{listRoute}}?{{relationQuery}}',
             success: function (response) {
                 $('.{{_model}}_content').html(response);
                 initDataTable('basic-datatable');

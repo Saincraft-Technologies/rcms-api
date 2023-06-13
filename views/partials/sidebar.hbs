@@ -36,7 +36,7 @@
                 </li>
                 {{else}} --}}
                 <li class="side-nav-item _item" id="{{ display_name}}-small-li">
-                    <a onclick="loadPage('/superadmin{{route_name}}','{{ display_name}}', '{{ display_name}}', '{{ ../display_name}}')"
+                    <a onclick="loadPage('/backend/{{../../viewManager.role.role}}{{route_name}}','{{ display_name}}', '{{ display_name}}', '{{ ../display_name}}')"
                         aria-expanded="false">
                         <i class="{{icon}}"></i>
                         <span>{{ display_name}}</span>

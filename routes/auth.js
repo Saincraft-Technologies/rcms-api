@@ -19,7 +19,7 @@ router.get('/signup', notLoggedIn, async (req, res) => {
 });
 
 router.post('/signin', passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/backend',
     failureRedirect: '/auth/signin',
     failureFlash: true
 }));

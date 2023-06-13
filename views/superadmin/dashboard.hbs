@@ -99,7 +99,7 @@
         }
         function showAllApplications() {
             $.ajax({
-                url: '/applications/list',
+                url: '/backend/{{viewManager.role.role}}/applications/list',
                 success: function (response) {
                     $('.app_content').html(response);
                     initDataTable('basic-datatable');
