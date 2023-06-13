@@ -14,7 +14,7 @@ var main = {
     lists: []
 };
 // permissions
-main.indexes.push([`name`, `descriptions`]);
+main.indexes.push([`permission`, `descriptions`]);
 main.lists.push([['all', 'all permissions'], ['read', 'permission to read only!'], ['write', 'permission to write!'], ['delete', 'permission to delete!']]);
 MAIN.push([models.permissions, main]);
 var main = {

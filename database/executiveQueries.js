@@ -45,7 +45,7 @@ module.exports = async executeInitialQueries => {
                             break;
                         case models.permissions:
                             try {
-                                console.log('...creating permissions::');
+                                console.log('...creating permissions::', dataObject);
                                 await models.permissions.create(dataObject);
                                 break;
                             } catch (error) {
